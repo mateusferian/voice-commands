@@ -1,7 +1,7 @@
 // ColorScreen.java
-package br.com.mateusferian.voicecommands.view;
+package br.com.mateusferian.voicecommands.views;
 
-import br.com.mateusferian.voicecommands.controllers.impl.ControllerColorScreenControllerImpl;
+import br.com.mateusferian.voicecommands.controllers.impl.VoiceControllerImpl;
 import br.com.mateusferian.voicecommands.models.AudioModel;
 import br.com.mateusferian.voicecommands.models.impl.AudioModelImpl;
 
@@ -9,7 +9,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-public class ColorScreen extends JFrame {
+public class ColorScreenView extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
@@ -43,11 +43,11 @@ public class ColorScreen extends JFrame {
 	private JLabel kitchenLights, livingRoomLights, roomLights;
 
 	public static void main(String[] args) throws Exception {
-		ColorScreen frame = new ColorScreen();
+		ColorScreenView frame = new ColorScreenView();
 		frame.setVisible(true);
 	}
 
-	public ColorScreen() {
+	public ColorScreenView() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(FRAME_X, FRAME_Y, FRAME_WIDTH, FRAME_HEIGHT);
 
@@ -77,7 +77,7 @@ public class ColorScreen extends JFrame {
 		voiceCallButton.setFont(BUTTON_FONT);
 		voiceCallButton.setBackground(BUTTON_BACKGROUND_COLOR);
 		AudioModel audioModel = new AudioModelImpl();
-		voiceCallButton.addActionListener(new ControllerColorScreenControllerImpl(this, audioModel));
+		voiceCallButton.addActionListener(new VoiceControllerImpl(this, audioModel));
 		kitchenLights = createColorLabel(null, KITCHEN_LABEL_TEXT);
 		livingRoomLights = createColorLabel(null, LIVING_ROOM_LABEL_TEXT);
 		roomLights = createColorLabel(null, ROOM_LABEL_TEXT);

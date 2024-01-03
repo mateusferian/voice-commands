@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import javax.speech.Central;
 import javax.speech.synthesis.Synthesizer;
 import javax.speech.synthesis.SynthesizerModeDesc;
+import java.awt.*;
 import java.util.Locale;
 
 @Slf4j
@@ -45,6 +46,11 @@ public class AudioModelImpl implements AudioModel {
                 log.error("Error while speaking", e);
             }
         }
+    }
+
+    @Override
+    public void playSound() {
+        Toolkit.getDefaultToolkit().beep();
     }
 }
 

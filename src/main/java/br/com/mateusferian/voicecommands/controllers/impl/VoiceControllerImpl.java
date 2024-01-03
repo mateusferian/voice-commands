@@ -3,18 +3,16 @@ package br.com.mateusferian.voicecommands.controllers.impl;
 import br.com.mateusferian.voicecommands.controllers.VoiceController;
 import br.com.mateusferian.voicecommands.models.AudioModel;
 import br.com.mateusferian.voicecommands.models.impl.ThreadVoiceModelImpl;
-import br.com.mateusferian.voicecommands.view.ColorScreen;
+import br.com.mateusferian.voicecommands.views.ColorScreenView;
 
-import javax.sound.sampled.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
-public class ControllerColorScreenControllerImpl implements ActionListener, VoiceController {
+public class VoiceControllerImpl implements ActionListener, VoiceController {
 
-    private ColorScreen colorScreen;
-    private AudioModel audioControllerModel;
+    private ColorScreenView colorScreenView;
+    private AudioModel audioModel;
 
     private static final Color COLOR_OF_LIGHT = new Color(255, 255, 153);
     private static final Color RESET_COLOR = new Color(30, 30, 30);
@@ -27,21 +25,21 @@ public class ControllerColorScreenControllerImpl implements ActionListener, Voic
     private static final String TURN_ON_ROOM_LIGHTS = "turn on room lights";
     private static final String TURN_ON_ALL_LIGHTS = "turn on all the lights";
 
-    public ControllerColorScreenControllerImpl(ColorScreen colorScreen, AudioModel audioControllerModel) {
-        this.colorScreen = colorScreen;
-        this.colorScreen.getVoiceCallButton().addActionListener(this);
-        this.audioControllerModel = audioControllerModel;
+    public VoiceControllerImpl(ColorScreenView colorScreenView, AudioModel audioControllerModel) {
+        this.colorScreenView = colorScreenView;
+        this.colorScreenView.getVoiceCallButton().addActionListener(this);
+        this.audioModel = audioControllerModel;
     }
 
     @Override
     public void actionPerformed(ActionEvent arg0) {
-        audioControllerModel.speak(VOICE_GREETING);
+        audioModel.speak(VOICE_GREETING);
         changeColor();
     }
 
     private void changeColor() {
-        colorScreen.getVoiceCallButton().setText(LOADING_TEXT);
-        ThreadVoiceModelImpl threadVoz = new ThreadVoiceModelImpl(this, colorScreen.getVoiceCallButton());
+        colorScreenView.getVoiceCallButton().setText(LOADING_TEXT);
+        ThreadVoiceModelImpl threadVoz = new ThreadVoiceModelImpl(this, colorScreenView.getVoiceCallButton());
         threadVoz.execute();
     }
 
@@ -50,22 +48,22 @@ public class ControllerColorScreenControllerImpl implements ActionListener, Voic
         resetColorLabels();
         switch (text.toLowerCase()) {
             case TURN_ON_KITCHEN_LIGHTS:
-                colorScreen.getKitchenLights().setBackground(COLOR_OF_LIGHT);
-                playSound();
+                colorScreenView.getKitchenLights().setBackground(COLOR_OF_LIGHT);
+                audioModel.playSound();
                 break;
             case TURN_ON_LIVING_ROOM_LIGHTS:
-                colorScreen.getLivingRoomLights().setBackground(COLOR_OF_LIGHT);
-                playSound();
+                colorScreenView.getLivingRoomLights().setBackground(COLOR_OF_LIGHT);
+                audioModel.playSound();
                 break;
             case TURN_ON_ROOM_LIGHTS:
-                colorScreen.getRoomLights().setBackground(COLOR_OF_LIGHT);
-                playSound();
+                colorScreenView.getRoomLights().setBackground(COLOR_OF_LIGHT);
+                audioModel.playSound();
                 break;
             case TURN_ON_ALL_LIGHTS:
-                colorScreen.getKitchenLights().setBackground(COLOR_OF_LIGHT);
-                colorScreen.getLivingRoomLights().setBackground(COLOR_OF_LIGHT);
-                colorScreen.getRoomLights().setBackground(COLOR_OF_LIGHT);
-                playSound();
+                colorScreenView.getKitchenLights().setBackground(COLOR_OF_LIGHT);
+                colorScreenView.getLivingRoomLights().setBackground(COLOR_OF_LIGHT);
+                colorScreenView.getRoomLights().setBackground(COLOR_OF_LIGHT);
+                audioModel.playSound();
                 break;
             default:
                 break;
@@ -73,12 +71,8 @@ public class ControllerColorScreenControllerImpl implements ActionListener, Voic
     }
 
     private void resetColorLabels() {
-        colorScreen.getKitchenLights().setBackground(RESET_COLOR);
-        colorScreen.getLivingRoomLights().setBackground(RESET_COLOR);
-        colorScreen.getRoomLights().setBackground(RESET_COLOR);
-    }
-
-    private void playSound() {
-        Toolkit.getDefaultToolkit().beep();
+        colorScreenView.getKitchenLights().setBackground(RESET_COLOR);
+        colorScreenView.getLivingRoomLights().setBackground(RESET_COLOR);
+        colorScreenView.getRoomLights().setBackground(RESET_COLOR);
     }
 }
