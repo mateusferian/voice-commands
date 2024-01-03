@@ -1,0 +1,6 @@
+#JSGF V1.0;
+
+grammar grammar;
+
+public <commands> = ( turn on kitchen lights | turn on living room lights | turn on room lights | turn on all the lights | close );
+ 
